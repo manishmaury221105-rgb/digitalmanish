@@ -479,7 +479,8 @@ function updateThemeIcon() {
 function initActivePageNav() {
   const currentPath = window.location.pathname.toLowerCase();
   let currentPage = 'home';
-  if (currentPath.includes('services')) currentPage = 'services';
+  if (currentPath.includes('404')) currentPage = '404';
+  else if (currentPath.includes('services')) currentPage = 'services';
   else if (currentPath.includes('projects')) currentPage = 'projects';
   else if (currentPath.includes('why-work')) currentPage = 'why-work';
   else if (currentPath.includes('about')) currentPage = 'about';
@@ -644,14 +645,32 @@ function renderProjects() {
 
   const filterCards = () => {
     const cards = container.querySelectorAll('.project-card');
+    let visibleCount = 0;
     cards.forEach(card => {
       const cat = card.getAttribute('data-category') || '';
       if (AppState.projectFilter === 'All' || cat.toLowerCase().includes(AppState.projectFilter.toLowerCase())) {
         card.style.display = '';
+        visibleCount++;
       } else {
         card.style.display = 'none';
       }
     });
+
+    let emptyMsg = document.getElementById('projects-empty-state');
+    if (visibleCount === 0) {
+      if (!emptyMsg) {
+        emptyMsg = document.createElement('div');
+        emptyMsg.id = 'projects-empty-state';
+        emptyMsg.className = 'empty-state-box';
+        emptyMsg.style.cssText = 'grid-column: 1 / -1; text-align: center; padding: 48px 24px; color: var(--text-muted); font-size: 1.05rem;';
+        emptyMsg.innerHTML = '<p style="margin-bottom: 12px;">🚀 Additional project case studies in this category are being updated.</p><a href="https://wa.me/919214468818?text=Hello%20Manish!%20I%20would%20like%20to%20see%20more%20projects." target="_blank" rel="noopener" style="color: var(--primary); font-weight: 700; text-decoration: underline;">Request private portfolio demos on WhatsApp &rarr;</a>';
+        container.appendChild(emptyMsg);
+      } else {
+        emptyMsg.style.display = '';
+      }
+    } else if (emptyMsg) {
+      emptyMsg.style.display = 'none';
+    }
   };
 
   document.querySelectorAll('.project-filter-btn').forEach(btn => {

@@ -1662,13 +1662,13 @@ body.light-theme .skill-card {
 }
 .contact-tile:hover {
   transform: translateX(4px);
-  border-color: var(--tile-color);
+  border-color: var(--tile-color, var(--primary));
 }
 .tile-icon-box {
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  background: var(--tile-color);
+  background: var(--tile-color, var(--primary));
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -1778,14 +1778,14 @@ body.light-theme .skill-card {
   border-radius: var(--radius-full);
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--social-color);
-  background: var(--social-bg);
-  border: 1px solid var(--social-border);
+  color: var(--social-color, var(--primary));
+  background: var(--social-bg, rgba(99, 102, 241, 0.1));
+  border: 1px solid var(--social-border, rgba(99, 102, 241, 0.25));
   transition: all var(--transition-fast);
 }
 .social-badge:hover {
   transform: translateY(-2px);
-  background: var(--social-color);
+  background: var(--social-color, var(--primary));
   color: #ffffff;
 }
 .social-badge svg {
